@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "sigmet": {
+      "command": "node",
+      "args": ["/Users/ken.wiebke/Repo/MCP-Sigmet/dist/index.js"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+} 

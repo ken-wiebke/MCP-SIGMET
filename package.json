@@ -1,0 +1,39 @@
+{
+  "name": "mcp-sigmet",
+  "version": "1.0.0",
+  "description": "MCP server for gathering SIGMET data from AviationWeather.gov API",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "jest",
+    "test:api": "tsx tests/test-api.ts",
+    "test:mcp": "tsx tests/test-mcp-server.ts",
+    "test:integration": "tsx tests/test-mcp-integration.ts",
+    "debug:test": "node debug-test.js"
+  },
+  "keywords": [
+    "mcp",
+    "sigmet",
+    "aviation",
+    "weather",
+    "api"
+  ],
+  "author": "Ken Wiebke",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.4.0",
+    "axios": "^1.6.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.10.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.4.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.3.0"
+  }
+}

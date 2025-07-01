@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "sigmet": {
+      "command": "node",
+      "args": ["dist/index.js"],
+      "env": {}
+    }
+  }
+} 
