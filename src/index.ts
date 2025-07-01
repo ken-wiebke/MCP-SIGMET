@@ -10,7 +10,7 @@ import {
   GetDomesticSigmetsParamsSchema, 
   GetInternationalSigmetsParamsSchema 
 } from './types.js';
-import { makeSigmetHumanReadable } from './utils';
+import { makeSigmetHumanReadable } from './utils.js';
 
 class SigmetServer {
   private server: Server;

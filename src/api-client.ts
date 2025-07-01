@@ -5,7 +5,7 @@ import {
   SigmetResponse,
   GetDomesticSigmetsParamsSchema,
   GetInternationalSigmetsParamsSchema
-} from './types';
+} from './types.js';
 
 export class AviationWeatherApiClient {
   private client: AxiosInstance;

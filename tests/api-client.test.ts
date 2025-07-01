@@ -1,5 +1,6 @@
-import { AviationWeatherApiClient } from '../src/api-client';
-import { makeSigmetHumanReadable } from '../src/utils';
+import { AviationWeatherApiClient } from '../src/api-client.js';
+import { makeSigmetHumanReadable } from '../src/utils.js';
+import { describe, it, expect, beforeAll } from 'vitest';
 
 describe('AviationWeatherApiClient', () => {
   let client: AviationWeatherApiClient;
