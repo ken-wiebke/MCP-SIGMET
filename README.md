@@ -8,8 +8,10 @@ An MCP (Model Context Protocol) server for gathering SIGMET (Significant Meteoro
 - Fetches international SIGMETs
 - Supports filtering by hazard type (convective, turbulence, icing, IFR)
 - Supports filtering by flight level
-- Returns data in JSON format
+- Returns data in JSON format with optional human-readable formatting
 - Built with TypeScript for type safety
+- Comprehensive parameter validation using Zod schemas
+- Full test coverage with Vitest
 
 ## Installation
 
@@ -31,31 +33,45 @@ npm run build
 
 ## Testing
 
+The project uses [Vitest](https://vitest.dev/) for comprehensive testing with multiple test suites:
+
 ```bash
-# Test the API client directly
-npm run test:api
+# Run all tests
+npm test
 
-# Test MCP server components (validation, schemas, etc.)
-npm run test:mcp
+# Run tests with UI (interactive)
+npm run test:ui
 
-# Test full MCP server integration (requires build first)
-npm run build
-npm run test:integration
+# Run specific test suites
+npm run test:api      # API client tests
+npm run test:mcp      # MCP server component tests
+npm run test:integration  # Full MCP integration tests
 
 # Manual interactive testing
 npm run build
 node tests/manual-test.js
-
-# Run unit tests (when implemented)
-npm test
 ```
 
-### Test Results Summary
+### Test Coverage
 
-✅ **API Client Test**: Successfully connects to AviationWeather.gov API and retrieves SIGMET data
-✅ **MCP Component Test**: Validates parameters, tests API calls, and verifies response formats
-✅ **MCP Integration Test**: Full end-to-end testing with real MCP client-server communication
-✅ **Manual Test**: Interactive testing with custom parameters
+✅ **API Client Tests** (`tests/api-client.test.ts`): Tests the AviationWeather.gov API client
+- Domestic SIGMET retrieval with and without filters
+- International SIGMET retrieval
+- Parameter validation and error handling
+- Human-readable output formatting
+
+✅ **MCP Server Tests** (`tests/test-mcp-server.ts`): Tests MCP server components
+- Tool registration and parameter validation
+- API integration and response formatting
+- Error handling for invalid parameters
+
+✅ **Integration Tests** (`tests/mcp-integrations.test.ts`): End-to-end MCP client-server testing
+- Full MCP protocol communication
+- Tool listing and execution
+- Real API calls with various parameters
+- Error handling for unknown tools
+
+✅ **Manual Tests** (`tests/manual-test.js`): Interactive testing with custom parameters
 
 ## Debugging
 
@@ -100,23 +116,36 @@ If you encounter the "Package subpath './register' is not defined" error:
 
 ## Usage
 
-This MCP server provides tools for retrieving SIGMET data:
+This MCP server provides tools for retrieving SIGMET data with comprehensive parameter validation:
 
 ### Domestic SIGMETs
 - **Tool**: `get_domestic_sigmets`
 - **Description**: Retrieves domestic SIGMETs for the United States
 - **Parameters**:
   - `hazard` (optional): Filter by hazard type (`conv`, `turb`, `ice`, `ifr`)
-  - `level` (optional): Flight level ±3000' to search
-  - `date` (optional): Specific date/time to search
+  - `level` (optional): Flight level ±3000' to search (0-600)
+  - `date` (optional): Specific date/time to search (format: `yyyymmdd_hhmmZ` or `yyyy-mm-ddThh:mm:ssZ`)
+  - `humanReadable` (optional): Return human-readable formatted output
 
 ### International SIGMETs
 - **Tool**: `get_international_sigmets`
 - **Description**: Retrieves international SIGMETs
 - **Parameters**:
   - `hazard` (optional): Filter by hazard type (`turb`, `ice`)
-  - `level` (optional): Flight level ±3000' to search
-  - `date` (optional): Specific date/time to search
+  - `level` (optional): Flight level ±3000' to search (0-600)
+  - `date` (optional): Specific date/time to search (format: `yyyymmdd_hhmmZ` or `yyyy-mm-ddThh:mm:ssZ`)
+  - `humanReadable` (optional): Return human-readable formatted output
+
+### Parameter Validation
+All parameters are validated using Zod schemas:
+- **Hazard types**: Strictly enforced enum values
+- **Flight levels**: Must be between 0-600
+- **Date formats**: Must match specified patterns
+- **Error handling**: Invalid parameters throw descriptive errors
+
+### Output Formats
+- **Standard**: Raw JSON data from the API
+- **Human-readable**: Formatted output with readable timestamps and descriptions (when `humanReadable: true`)
 
 ## API Reference
 
